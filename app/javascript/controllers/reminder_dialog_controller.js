@@ -6,6 +6,9 @@ export default class extends Controller {
   openDialog(event) {
     event.preventDefault()
     this.dialogTarget.showModal()
+
+    // Reset form fields
+    this.formTarget.reset()
   }
 
   closeDialog() {
