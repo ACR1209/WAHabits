@@ -8,10 +8,18 @@ class WahaWebhookController < ApplicationController
     own_number = extract_number(params.dig(:me, :id))
     inbound_message = payload[:fromMe] != true && sender_number.present? && sender_number != own_number
 
+
     if inbound_message && message_text == "/skibidi"
       Waha::SendMessage.new(
         phone: sender_number,
         text: "Skibidi bop yes yes yes"
+      ).call
+    end
+
+    if inbound_message && message_text == "/jcmgln"
+      Waha::SendMessage.new(
+        phone: sender_number,
+        text: "Joder tio como me gusta la noche"
       ).call
     end
 
@@ -21,6 +29,16 @@ class WahaWebhookController < ApplicationController
   private
 
   def extract_number(value)
-    value.to_s.split("@").first
+    raw_value = value.to_s
+    return "" if raw_value.blank?
+
+    return resolve_lid_number(raw_value) if raw_value.end_with?("@lid")
+
+    raw_value.split("@").first
+  end
+
+  def resolve_lid_number(lid)
+    result = Waha::ResolvePhoneByLid.call(lid: lid)
+    result.phone_number.presence || lid.split("@").first
   end
 end
