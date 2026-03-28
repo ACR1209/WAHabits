@@ -1,5 +1,5 @@
 <ul>
   <% reminders.each do |reminder| %>
-    <li><%= reminder.title %> - <%= reminder.due %></li>
+    <%= render partial: 'pages/reminder', locals: { reminder: reminder } %>
   <% end %>
 </ul>

@@ -29,13 +29,13 @@ class RemindersController < ApplicationController
         format.json { render :show, status: :created, location: @reminder }
         format.turbo_stream {
           @reminders = Reminder.all
-          render turbo_stream: turbo_stream.replace("reminders-list", partial: "pages/reminders_list", locals: { reminders: @reminders })
+          render "reminders/create_success"
         }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @reminder.errors, status: :unprocessable_entity }
         format.turbo_stream {
-          render turbo_stream: turbo_stream.replace("reminder-dialog-form", partial: "reminders/form", locals: { reminder: @reminder })
+          render "reminders/create_failure"
         }
       end
     end
@@ -47,6 +47,9 @@ class RemindersController < ApplicationController
       if @reminder.update(reminder_params)
         format.html { redirect_to @reminder, notice: "Reminder was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @reminder }
+        format.turbo_stream do
+          render "reminders/update_success"
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @reminder.errors, status: :unprocessable_entity }
