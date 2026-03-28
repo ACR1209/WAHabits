@@ -7,6 +7,7 @@
       "dependencies": {
         "@hotwired/stimulus": "^3.2.2",
         "@hotwired/turbo-rails": "^8.0.23",
+        "@stimulus-components/dialog": "^1.0.1",
         "esbuild": "^0.27.4",
       },
       "devDependencies": {
@@ -117,6 +118,8 @@
     "@parcel/watcher-win32-x64": ["@parcel/watcher-win32-x64@2.5.6", "", { "os": "win32", "cpu": "x64" }, "sha512-hbQlYcCq5dlAX9Qx+kFb0FHue6vbjlf0FrNzSKdYK2APUf7tGfGxQCk2ihEREmbR6ZMc0MVAD5RIX/41gpUzTw=="],
 
     "@rails/actioncable": ["@rails/actioncable@8.1.300", "", {}, "sha512-zOENQsq3NM2jyBY6Z2qtZa3V/R/6OEqA+LGKixQbBMl7kk/J3FXDRcszPe74LsHNgB01jCl/DXu/xA8sHt4I/g=="],
+
+    "@stimulus-components/dialog": ["@stimulus-components/dialog@1.0.1", "", { "peerDependencies": { "@hotwired/stimulus": "^3.0.0" } }, "sha512-7cpazrXeFKVmmuGnJOrykEvjRNRTOhLuI7SzgDdAlKWxM8ivBKziBHwjJGR96vCvSkoKwlGMGRcDzXgVRnr/7w=="],
 
     "@tailwindcss/cli": ["@tailwindcss/cli@4.1.14", "", { "dependencies": { "@parcel/watcher": "^2.5.1", "@tailwindcss/node": "4.1.14", "@tailwindcss/oxide": "4.1.14", "enhanced-resolve": "^5.18.3", "mri": "^1.2.0", "picocolors": "^1.1.1", "tailwindcss": "4.1.14" }, "bin": { "tailwindcss": "dist/index.mjs" } }, "sha512-2cErQRcsI8jIObUMVwcd1H2AWgGxwzozHJk7AKM2KB1taOp7L15xQ8kEsZrvVbOjNrb8yXtnSvNtJ+mhCB7EBg=="],
 

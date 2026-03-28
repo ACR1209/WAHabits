@@ -4,5 +4,12 @@
 
 import { application } from "./application"
 
+import Dialog from '@stimulus-components/dialog'
+application.register('dialog', Dialog)
+
+// START AUTO-GENERATED CONTROLLERS
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+// END AUTO-GENERATED CONTROLLERS

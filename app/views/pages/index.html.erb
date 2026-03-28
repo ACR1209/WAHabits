@@ -1,2 +1,14 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+<h1>Dashboard</h1>
+
+<div>
+    <div>
+        <h2>Reminders</h2>
+
+        <%= link_to "New Reminder", new_reminder_path %>
+    </div>
+    <ul>
+        <% @reminders.each do |reminder| %>
+            <li><%= reminder.title %> - <%= reminder.due %></li>
+        <% end %>
+    </ul>
+</div>
