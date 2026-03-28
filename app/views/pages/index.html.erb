@@ -1,14 +1,14 @@
 <h1>Dashboard</h1>
 
-<div>
+<div data-controller="reminder-dialog">
     <div>
         <h2>Reminders</h2>
-
-        <%= link_to "New Reminder", new_reminder_path %>
+        <button data-action="reminder-dialog#openDialog">New Reminder</button>
     </div>
-    <ul>
-        <% @reminders.each do |reminder| %>
-            <li><%= reminder.title %> - <%= reminder.due %></li>
-        <% end %>
-    </ul>
+    
+    <%= render partial: "pages/reminder_create_dialog" %>
+    
+    <turbo-frame id="reminders-list" data-reminder-dialog-target="list">
+        <%= render partial: "pages/reminders_list", locals: { reminders: @reminders } %>
+    </turbo-frame>
 </div>

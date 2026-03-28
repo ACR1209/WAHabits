@@ -12,4 +12,7 @@ application.register('dialog', Dialog)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ReminderDialogController from "./reminder_dialog_controller"
+application.register("reminder-dialog", ReminderDialogController)
+
 // END AUTO-GENERATED CONTROLLERS

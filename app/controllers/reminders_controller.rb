@@ -27,9 +27,16 @@ class RemindersController < ApplicationController
       if @reminder.save
         format.html { redirect_to @reminder, notice: "Reminder was successfully created." }
         format.json { render :show, status: :created, location: @reminder }
+        format.turbo_stream {
+          @reminders = Reminder.all
+          render turbo_stream: turbo_stream.replace("reminders-list", partial: "pages/reminders_list", locals: { reminders: @reminders })
+        }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @reminder.errors, status: :unprocessable_entity }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("reminder-dialog-form", partial: "reminders/form", locals: { reminder: @reminder })
+        }
       end
     end
   end

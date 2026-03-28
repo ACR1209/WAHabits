@@ -1,0 +1,9 @@
+/* Hide the dialog by default, only show when open attribute is present */
+dialog[data-reminder-dialog-target="dialog"][open] {
+  display: flex;
+}
+
+dialog[data-reminder-dialog-target="dialog"] > div {
+  margin: auto;
+}
+
