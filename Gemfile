@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "dotenv", groups: [ :development, :test ]
+
+gem "faraday", "~> 2.14"
