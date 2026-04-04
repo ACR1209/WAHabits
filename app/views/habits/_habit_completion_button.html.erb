@@ -1,0 +1,108 @@
+<%# Habit Completion Button with SVG Circle and Latches %>
+
+<% habit_completion = habit.habit_completion %>
+<% completions_done = habit_completion.present? ? habit_completion.completion_amount : 0 %>
+<% completions_needed = habit.completion_threshold - completions_done %>
+<% threshold = habit.completion_threshold %>
+
+<% if habit.completion_type == "custom_value" %>
+    <button type="button" class="habit-completion-btn bg-transparent border-none p-0 inline" onclick="document.getElementById('custom-value-modal-<%= habit.id %>').showModal()">
+        <% if completions_needed > 0 %>
+            <% size = 48 %>
+            <% radius = 20 %>
+            <% cx = size / 2 %>
+            <% cy = size / 2 %>
+            <% latch_width = 5 %>
+            <% latch_radius = radius - 2 %>
+            <% plus_size = 14 %>
+            <% gap_deg = 32 %>
+            <svg width="<%= size %>" height="<%= size %>" viewBox="0 0 <%= size %> <%= size %>" style="display: block;">
+                <% arc_deg = (360.0 / threshold) - gap_deg %>
+                <% arc_deg = [arc_deg, 1].max %>
+                <% threshold.times do |i| %>
+                    <% start_angle = (360.0 / threshold) * i - 90 + (gap_deg / 2.0) %>
+                    <% end_angle = start_angle + arc_deg %>
+                    <% start_rad = start_angle * Math::PI / 180 %>
+                    <% end_rad = end_angle * Math::PI / 180 %>
+                    <% x1 = cx + latch_radius * Math.cos(start_rad) %>
+                    <% y1 = cy + latch_radius * Math.sin(start_rad) %>
+                    <% x2 = cx + latch_radius * Math.cos(end_rad) %>
+                    <% y2 = cy + latch_radius * Math.sin(end_rad) %>
+                    <path d="M <%= x1 %> <%= y1 %> A <%= latch_radius %> <%= latch_radius %> 0 0 1 <%= x2 %> <%= y2 %>"
+                        fill="none"
+                        stroke="<%= i < completions_done ? '#4caf50' : '#bbb' %>"
+                        stroke-width="<%= latch_width %>"
+                        stroke-linecap="round"
+                    />
+                <% end %>
+                <line x1="<%= cx - plus_size/2 %>" y1="<%= cy %>" x2="<%= cx + plus_size/2 %>" y2="<%= cy %>" stroke="#333" stroke-width="3" stroke-linecap="round" />
+                <line x1="<%= cx %>" y1="<%= cy - plus_size/2 %>" x2="<%= cx %>" y2="<%= cy + plus_size/2 %>" stroke="#333" stroke-width="3" stroke-linecap="round" />
+            </svg>
+        <% else %>
+            <svg width="48" height="48" viewBox="0 0 48 48" style="display: block;">
+                <circle cx="24" cy="24" r="20" fill="#4caf50" />
+                <path d="M16 24l6 6 12-12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+            </svg>
+        <% end %>
+    </button>
+    <dialog id="custom-value-modal-<%= habit.id %>" class="modal">
+        <div class="modal-box">
+            <form action="<%= complete_habit_path(habit) %>" method="patch" class="w-full">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <%= hidden_field_tag :_method, 'patch' %>
+                <h3 class="font-bold text-lg mb-2">Add Completion</h3>
+                <p class="mb-4">Threshold needed: <strong><%= threshold %></strong></p>
+                <div class="mb-4">
+                    <label for="amount-<%= habit.id %>" class="block mb-1 font-semibold">Amount</label>
+                    <input type="number" min="0" name="amount" id="amount-<%= habit.id %>" class="input input-bordered w-full" required value="<%= habit_completion.completion_amount %>" />
+                </div>
+                <div class="modal-action flex justify-end gap-2">
+                    <button type="button" class="btn bg-gray-300 hover:bg-gray-400" onclick="this.closest('dialog').close()">Cancel</button>
+                    <button type="submit" class="btn bg-green-600 text-white hover:bg-green-700">Add</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+<% else %>
+    <%= button_to complete_habit_path(habit), method: :patch, data: { turbo_action: "replace" }, class: "habit-completion-btn", style: "background: none; border: none; padding: 0;" do %>
+        <% if completions_needed > 0 %>
+            <% size = 48 %>
+            <% radius = 20 %>
+            <% cx = size / 2 %>
+            <% cy = size / 2 %>
+            <% latch_width = 5 %>
+            <% latch_radius = radius - 2 %>
+            <% plus_size = 14 %>
+            <% gap_deg = 32 %> 
+            <svg width="<%= size %>" height="<%= size %>" viewBox="0 0 <%= size %> <%= size %>" style="display: block;">
+                    <% arc_deg = (360.0 / threshold) - gap_deg %>
+                    <% arc_deg = [arc_deg, 1].max %> <%# Prevent negative or zero arc %>
+                    <% threshold.times do |i| %>
+                    <% start_angle = (360.0 / threshold) * i - 90 + (gap_deg / 2.0) %>
+                    <% end_angle = start_angle + arc_deg %>
+                    <% start_rad = start_angle * Math::PI / 180 %>
+                    <% end_rad = end_angle * Math::PI / 180 %>
+                    <% x1 = cx + latch_radius * Math.cos(start_rad) %>
+                    <% y1 = cy + latch_radius * Math.sin(start_rad) %>
+                    <% x2 = cx + latch_radius * Math.cos(end_rad) %>
+                    <% y2 = cy + latch_radius * Math.sin(end_rad) %>
+                    <path d="M <%= x1 %> <%= y1 %> A <%= latch_radius %> <%= latch_radius %> 0 0 1 <%= x2 %> <%= y2 %>"
+                            fill="none"
+                            stroke="<%= i < completions_done ? '#4caf50' : '#bbb' %>"
+                            stroke-width="<%= latch_width %>"
+                            stroke-linecap="round"
+                            />
+                    <% end %>
+
+                    <line x1="<%= cx - plus_size/2 %>" y1="<%= cy %>" x2="<%= cx + plus_size/2 %>" y2="<%= cy %>" stroke="#333" stroke-width="3" stroke-linecap="round" />
+                    <line x1="<%= cx %>" y1="<%= cy - plus_size/2 %>" x2="<%= cx %>" y2="<%= cy + plus_size/2 %>" stroke="#333" stroke-width="3" stroke-linecap="round" />
+            </svg>
+        <% else %>
+            <svg width="48" height="48" viewBox="0 0 48 48" style="display: block;">
+            <circle cx="24" cy="24" r="20" fill="#4caf50" />
+            <path d="M16 24l6 6 12-12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+            </svg>
+        <% end %>
+    <% end %>
+<% end %>
+

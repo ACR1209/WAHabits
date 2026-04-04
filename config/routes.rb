@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  resources :habit_completions
+  resources :habits
   resources :reminders
+
+  patch "habits/:id/complete", to: "habits#complete", as: :complete_habit
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

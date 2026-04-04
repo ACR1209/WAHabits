@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_28_181846) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_000454) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "habit_completions", force: :cascade do |t|
+    t.integer "completion_amount"
+    t.datetime "completion_date", precision: nil
+    t.datetime "created_at", null: false
+    t.bigint "habit_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["habit_id"], name: "index_habit_completions_on_habit_id"
+  end
+
+  create_table "habits", force: :cascade do |t|
+    t.integer "completion_threshold"
+    t.integer "completion_type"
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.integer "goal_amount"
+    t.integer "goal_type"
+    t.string "title"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "reminders", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,4 +42,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_181846) do
     t.string "title"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "habit_completions", "habits"
 end
