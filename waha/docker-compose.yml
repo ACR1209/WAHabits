@@ -1,0 +1,14 @@
+services:
+  waha:
+    image: devlikeapro/waha
+    container_name: waha
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file:
+      - .env
+    environment:
+      WHATSAPP_DEFAULT_ENGINE: WEBJS
+      WHATSAPP_API_HOSTNAME: 0.0.0.0
+    volumes:
+      - ./sessions:/app/.sessions
