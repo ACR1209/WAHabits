@@ -1,0 +1,13 @@
+<%# Single reminder item with strikethrough and undo/done button %>
+<turbo-frame id="reminder_<%= reminder.id %>">
+    <li>
+    <span style="<%= 'text-decoration: line-through;' if reminder.done %>">
+        <%= reminder.title %> - <%= reminder.due %>
+    </span>
+    <% if reminder.done %>
+        <%= button_to 'Undo', reminder_path(reminder), method: :patch, params: { reminder: { done: false } }, form: { data: { turbo_frame: "reminder_#{reminder.id}" } }, class: 'undo-btn' %>
+    <% else %>
+        <%= button_to 'Mark as done', reminder_path(reminder), method: :patch, params: { reminder: { done: true } }, form: { data: { turbo_frame: "reminder_#{reminder.id}" } }, class: 'mark-done-btn' %>
+    <% end %>
+    </li>
+</turbo-frame>

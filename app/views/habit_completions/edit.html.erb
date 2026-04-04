@@ -1,0 +1,12 @@
+<% content_for :title, "Editing habit completion" %>
+
+<h1>Editing habit completion</h1>
+
+<%= render "form", habit_completion: @habit_completion %>
+
+<br>
+
+<div>
+  <%= link_to "Show this habit completion", @habit_completion %> |
+  <%= link_to "Back to habit completions", habit_completions_path %>
+</div>

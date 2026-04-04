@@ -1,0 +1,5 @@
+<ul>
+  <% habits.each do |habit| %>
+    <%= render partial: 'pages/habit', locals: { habit: habit } %>
+  <% end %>
+</ul>

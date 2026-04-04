@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  completion_type: 1
+  completion_threshold: 1
+  goal_type: 1
+  goal_amount: 1
+
+two:
+  title: MyString
+  description: MyString
+  completion_type: 1
+  completion_threshold: 1
+  goal_type: 1
+  goal_amount: 1

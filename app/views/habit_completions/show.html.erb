@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @habit_completion %>
+
+<div>
+  <%= link_to "Edit this habit completion", edit_habit_completion_path(@habit_completion) %> |
+  <%= link_to "Back to habit completions", habit_completions_path %>
+
+  <%= button_to "Destroy this habit completion", @habit_completion, method: :delete %>
+</div>

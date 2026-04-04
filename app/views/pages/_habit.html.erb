@@ -1,0 +1,8 @@
+<div>
+    <h3><%= habit.title %></h3>
+    <p><%= habit.description %></p>
+    <p><%= habit.completion_type.humanize %></p>
+    <p>Goal Amount: <%= habit.goal_amount %></p>
+
+    <%= render 'habits/habit_completion_button', habit: habit %>
+</div>

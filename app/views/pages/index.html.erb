@@ -1,0 +1,23 @@
+<h1>Dashboard</h1>
+
+<div data-controller="reminder-dialog">
+    <div>
+        <h2>Reminders</h2>
+        <button data-action="reminder-dialog#openDialog">New Reminder</button>
+    </div>
+    
+    <%= render partial: "pages/reminder_create_dialog" %>
+    
+    <turbo-frame id="reminders-list" data-reminder-dialog-target="list">
+        <%= render partial: "pages/reminders_list", locals: { reminders: @reminders } %>
+    </turbo-frame>
+</div>
+
+<div>
+    <h2>Habits</h2>
+    <%= link_to "New Habit", new_habit_path %>
+    
+    <turbo-frame id="habits-list">
+        <%= render partial: "pages/habits_list", locals: { habits: @habits } %>
+    </turbo-frame>
+</div>

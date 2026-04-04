@@ -4,5 +4,18 @@
 
 import { application } from "./application"
 
+import Dialog from '@stimulus-components/dialog'
+application.register('dialog', Dialog)
+
+// START AUTO-GENERATED CONTROLLERS
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ReminderDialogController from "./reminder_dialog_controller"
+application.register("reminder-dialog", ReminderDialogController)
+
+import HabitFormController from "./habit_form_controller"
+application.register("habit-form", HabitFormController)
+
+// END AUTO-GENERATED CONTROLLERS

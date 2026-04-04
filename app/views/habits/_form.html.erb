@@ -1,0 +1,54 @@
+<%= form_with(model: habit, html: { data: { controller: "habit-form" } }) do |form| %>
+  <% if habit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(habit.errors.count, "error") %> prohibited this habit from being saved:</h2>
+
+      <ul>
+        <% habit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :completion_type, style: "display: block" %>
+    <div class="join w-fit mb-4">
+        <% Habit.completion_types.each do |key, value| %>
+          <%= form.radio_button :completion_type, key, class: "join-item btn", aria: { label: key.humanize } %>
+        <% end %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :completion_threshold, style: "display: block" %>
+    <%= form.number_field :completion_threshold %>
+  </div>
+
+  <div>
+    <%= form.label :goal_type, style: "display: block" %>
+    <%= form.select :goal_type, Habit.goal_types.keys.map { |k| [k.humanize, k] }, {}, class: "select select-bordered w-full max-w-xs", data: { habit_form_target: "goalType", action: "change->habit-form#changeGoalType" } %>
+  </div>
+
+  <div>
+    <%= form.label :goal_amount, style: "display: block" %>
+    <div style="display: flex; align-items: center; gap: 0.5em;">
+      <%= form.number_field :goal_amount, data: { habit_form_target: "goalAmount" } %>
+      <span data-habit-form-target="goalSuffix"></span>
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
