@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :reminders
 
   patch "habits/:id/complete", to: "habits#complete", as: :complete_habit
-  post 'webhook' => 'waha_webhook#receive', as: :waha_webhook
+  post "webhook" => "waha_webhook#receive", as: :waha_webhook
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
